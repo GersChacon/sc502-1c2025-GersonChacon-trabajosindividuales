@@ -1,0 +1,108 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 10px;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.header a:hover {
+    background-color: #575757;
+}
+
+.contenido{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 70%;
+
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 60%;
+}
+
+.seccion-de-perfil-del-doctor{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+.seccion-de-perfil-del-doctor h3{
+    color: green;
+    margin-top: 5px;
+    margin-bottom: 50px;
+}
+
+.seccion-de-perfil-del-doctor h4{
+    color: black;
+    margin-bottom: 50px;
+}
+
+.seccion-de-perfil-del-doctor p{
+    color: black;
+    margin-bottom: 50px;
+}
+
+.button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #008CBA;
+    border-radius: 10px;
+  }
+  .button:hover{
+    color: #333;
+    background-color: rgb(79, 241, 54);
+  }
+  
+.container2 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.comentarios {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contenido-comentario {
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    padding: 15px;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
