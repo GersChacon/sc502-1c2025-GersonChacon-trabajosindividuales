@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const products = [];
     const productForm = document.getElementById('product-form');
     const productList = document.getElementById('productList');
+    let editMode = false;
+    let editProductId = null;
 
     productForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -9,14 +11,24 @@ document.addEventListener('DOMContentLoaded', function () {
         const precio = document.getElementById('product-precio').value;
         const categoria = document.getElementById('product-categoria').value;
 
-        const newProduct = {
-            id: products.length + 1,
-            nombre,
-            precio,
-            categoria
-        };
-
-        products.push(newProduct);
+        if (editMode) {
+            const productIndex = products.findIndex(product => product.id === editProductId);
+            if (productIndex !== -1) {
+                products[productIndex].nombre = nombre;
+                products[productIndex].precio = precio;
+                products[productIndex].categoria = categoria;
+            }
+            editMode = false;
+            editProductId = null;
+        } else {
+            const newProduct = {
+                id: products.length + 1,
+                nombre,
+                precio,
+                categoria
+            };
+            products.push(newProduct);
+        }
         loadProducts();
         productForm.reset();
     });
@@ -53,12 +65,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function handleEditProduct(event) {
-        alert('Se presionó el botón con id ' + event.target.dataset.id);
+        const productId = parseInt(event.target.dataset.id);
+        const product = products.find(product => product.id === productId);
+
+        if (product) {
+            document.getElementById('product-nombre').value = product.nombre;
+            document.getElementById('product-precio').value = product.precio;
+            document.getElementById('product-categoria').value = product.categoria;
+
+            editMode = true;
+            editProductId = productId;
+        }
     }
 
     function handleDeleteProduct(event) {
-        const productId = event.target.dataset.id;
-        const index = products.findIndex(product => product.id == productId);
+        const productId = parseInt(event.target.dataset.id);
+        const index = products.findIndex(product => product.id === productId);
         if (index !== -1) {
             products.splice(index, 1);
             loadProducts();
@@ -74,15 +96,15 @@ document.addEventListener('DOMContentLoaded', function () {
             .forEach(product => {
                 const productRow = document.createElement('tr');
                 productRow.innerHTML = `
-                    <td>${product.nombre}</td>
-                    <td>${product.precio}</td>
-                    <td>${product.categoria}</td>
-                    <td>
-                        <button class="btn btn-secondary btn-sm edit-product" data-id="${product.id}">Editar</button>
-                        <button class="btn btn-danger btn-sm delete-product" data-id="${product.id}">Eliminar</button>
-                    </td>
-                    <td></td>
-                `;
+            <td>${product.nombre}</td>
+            <td>${product.precio}</td>
+            <td>${product.categoria}</td>
+            <td>
+              <button class="btn btn-secondary btn-sm edit-product" data-id="${product.id}">Editar</button>
+              <button class="btn btn-danger btn-sm delete-product" data-id="${product.id}">Eliminar</button>
+            </td>
+            <td></td>
+          `;
                 productList.appendChild(productRow);
             });
 

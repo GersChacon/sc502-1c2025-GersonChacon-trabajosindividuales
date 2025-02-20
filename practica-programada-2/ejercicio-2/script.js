@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const users = [];
     const userForm = document.getElementById('user-form');
     const userList = document.getElementById('user-list');
+    let editMode = false;
+    let editUserId = null;
 
     userForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -9,14 +11,25 @@ document.addEventListener('DOMContentLoaded', function () {
         const email = document.getElementById('email').value;
         const rol = document.getElementById('rol').value;
 
-        const newUser = {
-            id: users.length + 1,
-            nombre,
-            email,
-            rol
-        };
+        if (editMode) {
+            const userIndex = users.findIndex(user => user.id === editUserId);
+            if (userIndex !== -1) {
+                users[userIndex].nombre = nombre;
+                users[userIndex].email = email;
+                users[userIndex].rol = rol;
+            }
+            editMode = false;
+            editUserId = null;
+        } else {
+            const newUser = {
+                id: users.length + 1,
+                nombre,
+                email,
+                rol
+            };
+            users.push(newUser);
+        }
 
-        users.push(newUser);
         loadUsers();
         userForm.reset();
     });
@@ -57,7 +70,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function handleEditUser(event) {
-        alert('se presiono el boton con task Id ' + event.target.dataset.id);
+        const userId = parseInt(event.target.dataset.id);
+        const user = users.find(user => user.id === userId);
+
+        if (user) {
+            document.getElementById('nombre').value = user.nombre;
+            document.getElementById('email').value = user.email;
+            document.getElementById('rol').value = user.rol;
+            editMode = true;
+            editUserId = userId;
+        }
     }
 
     function handleDeleteUser(event) {
